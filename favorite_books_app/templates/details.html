@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Details of a Book</title>
+
+    <style>
+        header {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> Welcome {{user.fname}}</h1>
+        <a href="/logout">Logout</a>
+        <a href="/books">Go Back to All Books</a>
+    </header>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <h2>{{books.title}}</h2>
+                </div>
+                <ul>
+                    <li>Added by: {{books.uploaded_by.fname}} {{books.uploaded_by.lname}}</li>
+                    <li>Added on: {{books.created_at}}</li>
+                    <li>Last updated on: {{books.updated_at}}</li>
+                    <li>Description: <br>{{books.desc}}</li>
+                </ul>
+
+
+            </div>
+            <div class="col-md-6">
+                <h2>Users who like this Book </h2>
+                <div class="col-md-6">
+                    <ul>
+                        {% for each in liked %}
+                        <li>{{each.fname}} {{each.lname}}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="/favorite/{{books.id}}">Add to Favorites</a>
+
+                    <!-- List of users who like book and user can unfavorite a book -->
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

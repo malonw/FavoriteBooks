@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Books</title>
+
+    <style>
+        header {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        p {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1> Welcome {{user.fname}}</h1>
+        <a href="/logout">Logout</a>
+        <a href="/books">Go Back to All Books</a>
+    </header>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <form action="/update/{{books.id}}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="title" value="{{books.title}}" class="form-control"></h2>
+                            {% csrf_token %} {% if messages %} {% for message in messages %}
+                            {% if 'title' in message.tags %}
+                            <p>{{message}}</p>
+                            {% endif %} {% endfor %} {% endif %}
+
+                        </div>
+                        <ul>
+                            <li>Added by: {{books.uploaded_by}}</li>
+                            <li>Added on: {{books.created_at}}</li>
+                            <li>Last updated on: {{books.updated_at}}</li>
+                        </ul>
+                        <div class="form-group">
+                            <label for="desc">Description:</label>
+                            <textarea type="textbox" name="desc" class="form-control">{{books.desc}}</textarea>
+                            {% if messages %} {% for message in messages %}
+                            {% if 'desc' in message.tags %}
+                            <p>{{message}}</p>
+                            {% endif %} {% endfor %} {% endif %}
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value='Update' name="submit" class="btn btn-success">
+                    </form>
+                    <form action="/destroy/{{books.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value='Delete  ' name="submit" class="btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Users who like this Book </h2>
+            <div class="col-md-6">
+                {% for each in books.user_favorites.all %}
+                <ul>
+
+                    <li>{{each.fname}} {{each.lname}} {% if user.id == each.id %} | <a
+                            href="/favorite/{{books.id}}">Un-Favorite</a>{% endif %}
+                    </li>
+
+                </ul>
+                {% endfor %}
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
